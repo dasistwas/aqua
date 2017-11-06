@@ -16,7 +16,13 @@
   <allow-navigation href="content:*"/>
   <allow-navigation href="data:*"/>
   <allow-navigation href="*"/>
+  <allow-navigation href="https://h5p.org/h5p/embed/105547" />
+  <allow-navigation href="https://h5p.org/sites/all/modules/h5p/library/js/h5p-resizer.js"/>
   <allow-intent href="*"/>
+  <feature name="Media">
+    <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
+</feature>
+<preference name="AllowInlineMediaPlayback" value="true" />
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
   <preference name="fullscreen" value="false"/>
