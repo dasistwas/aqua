@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.moodle.moodlemobile" version="3.3.2">
-  <name>Hirtenberger Learning</name>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.asd.asdasd" version="3.3.2">
+  <name>asdasda Learning</name>
   <description>
-        Hirtenberger Learning
+        asdasd Learning
     </description>
   <author href="http://www.edulabs.org" email="info@edulabs.org">
         edulabs Mobile Team
