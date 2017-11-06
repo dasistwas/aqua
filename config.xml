@@ -16,23 +16,13 @@
   <allow-navigation href="content:*"/>
   <allow-navigation href="data:*"/>
   <allow-navigation href="*"/>
-  <allow-navigation href="https://h5p.org/h5p/embed/105547" />
-  <allow-navigation href="https://h5p.org/sites/all/modules/h5p/library/js/h5p-resizer.js"/>
+  <allow-navigation href="https://h5p.org/*" />
+
   <allow-intent href="*"/>
   <feature name="Media">
     <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
 </feature>
-    <gap:plugin name="org.apache.cordova.device-motion" source="npm" />
-    <gap:plugin name="org.apache.cordova.device-orientation" source="npm" />
-    <gap:plugin name="org.apache.cordova.dialogs" source="npm" />
-    <gap:plugin name="org.apache.cordova.file" source="npm" />
-    <gap:plugin name="org.apache.cordova.file-transfer" source="npm" />
 
-    <gap:plugin name="org.apache.cordova.inappbrowser" source="npm" />
-    <gap:plugin name="org.apache.cordova.media" source="npm" />
-    <gap:plugin name="org.apache.cordova.network-information" source="npm" />
-    <gap:plugin name="org.apache.cordova.splashscreen" source="npm" />
-    <gap:plugin name="org.apache.cordova.vibration" source="npm" />
 
 <preference name="AllowInlineMediaPlayback" value="true" />
   <preference name="orientation" value="default"/>
