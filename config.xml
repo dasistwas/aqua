@@ -49,19 +49,19 @@
 		<preference name="LoadingDialog" value="," />
 		<preference name="LoadUrlTimeoutValue" value="null" />
 		<platform name="ios">
-		<icon src="C:\Users\Thomas\Desktop\edulabs\aqua\Antibiotika\config.xmlres/icon/ios/icon-57.png" width="57" height="57" />
-		<icon src="C:\Users\Thomas\Desktop\edulabs\aqua\Antibiotika\config.xmlres/icon/ios/icon-72-2x.png" width="144" height="144" />
-		<icon src="C:\Users\Thomas\Desktop\edulabs\aqua\Antibiotika\config.xmlres/icon/ios/icon-72.png" width="72" height="72" />
-		<icon src="C:\Users\Thomas\Desktop\edulabs\aqua\Antibiotika\config.xmlres/icon/ios/icon-57-2x.png" width="114" height="114" />
+		<icon src="config.xmlres/icon/ios/icon-57.png" width="57" height="57" />
+		<icon src="config.xmlres/icon/ios/icon-72-2x.png" width="144" height="144" />
+		<icon src="config.xmlres/icon/ios/icon-72.png" width="72" height="72" />
+		<icon src="config.xmlres/icon/ios/icon-57-2x.png" width="114" height="114" />
 		</platform>
 		<platform name="android">
-		<icon src="C:\Users\Thomas\Desktop\edulabs\aqua\Antibiotika\config.xmlres/icon/android/icon-36-ldpi.png" qualifier="ldpi" />
-		<icon src="C:\Users\Thomas\Desktop\edulabs\aqua\Antibiotika\config.xmlres/icon/android/icon-48-mdpi.png" qualifier="mdpi" />
-		<icon src="C:\Users\Thomas\Desktop\edulabs\aqua\Antibiotika\config.xmlres/icon/android/icon-72-hdpi.png" qualifier="hdpi" />
-		<icon src="C:\Users\Thomas\Desktop\edulabs\aqua\Antibiotika\config.xmlres/icon/android/icon-96-xhdpi.png" qualifier="xhdpi" />
+		<icon src="config.xmlres/icon/android/icon-36-ldpi.png" qualifier="ldpi" />
+		<icon src="config.xmlres/icon/android/icon-48-mdpi.png" qualifier="mdpi" />
+		<icon src="config.xmlres/icon/android/icon-72-hdpi.png" qualifier="hdpi" />
+		<icon src="config.xmlres/icon/android/icon-96-xhdpi.png" qualifier="xhdpi" />
 		</platform>
 		<platform name="winphone">
-		<icon src="C:\Users\Thomas\Desktop\edulabs\aqua\Antibiotika\config.xmlres/icon/windows-phone/icon-173.png" />
+		<icon src="config.xmlres/icon/windows-phone/icon-173.png" />
 		</platform>
 		 <icon src="icon.png" />
 		</widget>
