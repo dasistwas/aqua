@@ -22,7 +22,7 @@
   <feature name="Media">
     <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
 </feature>
-
+<plugin name="cordova-plugin-whitelist" source="npm" />
 
 <preference name="AllowInlineMediaPlayback" value="true" />
   <preference name="orientation" value="default"/>
