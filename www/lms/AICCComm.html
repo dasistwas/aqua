@@ -73,6 +73,8 @@ var strLessonStatus = "i";
 var strScore = "";
 var strTime = "00:00:00";
 
+var lastPostType = {};
+
 //Communication Capabilities of the current browser - we check the actual capabilities 
 //rather than specific browsers to ensure forward compatibility and compatibility with untested browsers
 var blnCanUseXMLHTTP;		//set in the onload event
@@ -471,6 +473,10 @@ function DetectPreferredCommMethod(){
 
 function SubmitForm(strAICCURL, strAICCSID, strRequestType, strAICCData){
 	
+	if (lastPostType[strRequestType] === strAICCData) {
+		return;
+	}
+	
 	WriteToDebug ("In SubmitForm, setting fields");
 	WriteToDebug ("strAICCURL = " + strAICCURL);
 	WriteToDebug ("strAICCSID = " + strAICCSID);
@@ -481,7 +487,6 @@ function SubmitForm(strAICCURL, strAICCSID, strRequestType, strAICCData){
 	WriteToDebug ("canUseTryCatch = " + canUseTryCatch);
 	
 	if (blnCanUseXMLHTTP){
-		
 		// try/catch is supported in all browsers that support xmlHttp
 		try{
 			SubmitFormUsingXMLHTTP(strAICCURL, strAICCSID, strRequestType, strAICCData);
@@ -532,6 +537,9 @@ function SubmitForm(strAICCURL, strAICCSID, strRequestType, strAICCData){
 		SubmitFormNormally(strAICCURL, strAICCSID, strRequestType, strAICCData);
 	}
 	
+	if (strRequestType != REQUEST_TYPE_GET) {
+		lastPostType[strRequestType] = strAICCData;
+	}
 }
 
 

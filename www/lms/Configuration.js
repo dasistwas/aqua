@@ -15,7 +15,7 @@ var AICC_LESSON_ID = "1";						//if recording question answers in AICC in an LMS
 											//this field need to match the system_id on line in the .DES file that describes
 											//this course, the default is 1. Be sure that this value does not contain double quote characters (")
 											
-var EXIT_BEHAVIOR = "ALWAYS_CLOSE_TOP";		//used to control window closing behavior on call of ConcedeControl
+var EXIT_BEHAVIOR = "SCORM_RECOMMENDED";		//used to control window closing behavior on call of ConcedeControl
 												//Possible Values: SCORM_RECOMMENDED, ALWAYS_CLOSE, ALWAYS_CLOSE_TOP, NOTHING, REDIR_CONTENT_FRAME, LMS_SPECIFIED_REDIRECT
 
 var EXIT_TARGET = "lms/goodbye.html";			//Used in conjunction with EXIT_BEHAVIOR, only with REDIR_CONTENT_FRAME. This should be a neutral page that is displayed

@@ -230,7 +230,8 @@ function WriteToDebug(strInfo){
 		aryDebug[aryDebug.length] = strLine;
 		
 		if (winDebug && !winDebug.closed){
-			winDebug.document.write(strLine + "<br>\n");
+			winDebug.document.body.appendChild( winDebug.document.createTextNode(strLine) );
+			winDebug.document.body.appendChild( winDebug.document.createElement("br") );
 		}
 
 	}
@@ -239,19 +240,41 @@ function WriteToDebug(strInfo){
 
 //public
 function ShowDebugWindow(){
+	var renderLog = function () {
+		var i,
+			len = aryDebug.length;
+
+		winDebug.document.body.innerHTML = "";
+		for (i = 0; i < len; i += 1) {
+			winDebug.document.body.appendChild( winDebug.document.createTextNode(aryDebug[i]) );
+			winDebug.document.body.appendChild( winDebug.document.createElement("br") );
+		}
+	};
 
 	if (winDebug && !winDebug.closed){
 		winDebug.close();
 	}
-	
-	winDebug = window.open("blank.html", "Debug", "width=600,height=300,resizable,scrollbars");
-	
-	winDebug.document.write(aryDebug.join("<br>\n"));
-	
-	winDebug.document.close();
-	
-	winDebug.focus();
-	
+
+	winDebug = window.open("lms/blank.html", "Debug", "width=600,height=300,resizable,scrollbars");
+
+	if (winDebug === null) {
+		alert("Debug window could not be opened, popup blocker in place?");
+	}
+	else {
+		if (winDebug.addEventListener || winDebug.attachEvent) {
+			winDebug[winDebug.addEventListener ? 'addEventListener' : 'attachEvent'](
+				(winDebug.attachEvent ? 'on' : '') + 'load',
+				renderLog,
+				false
+			);
+		}
+
+		renderLog();
+
+		winDebug.document.close();
+		winDebug.focus();
+	}
+
 	return;
 }
 

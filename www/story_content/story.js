@@ -3,6 +3,7 @@
 var strAgent = window.navigator.userAgent;
 var strAppVersion = window.navigator.appVersion;
 
+var isChrome = ((navigator.userAgent.toLowerCase().indexOf('chrome') > -1) &&(navigator.vendor.toLowerCase().indexOf("google") > -1));
 var IE =  (((document.all) && (strAppVersion.indexOf("MSIE")!=-1)) || strAgent.indexOf("Trident") != -1) ? true : false;
 var IE6 = ((document.all) && (strAppVersion.indexOf("MSIE 6.")!=-1)) ? true : false;
 var gtIEWin7 = IE && ((strAgent.indexOf("Windows NT 6.1") == -1) && (strAgent.indexOf("Windows NT 6.0") == -1) && (strAgent.indexOf("Windows NT 5.1") == -1) && (strAgent.indexOf("Windows NT 5.0") == -1));
@@ -31,16 +32,18 @@ if (g_bAOSupport)
 }
 
 var g_strQuery = document.location.search.substr(1);
+var g_bElement = false;
+var g_bFillWindow = false;
 
 // Write the swf object
-function WriteSwfObject(strSwfFile, nWidth, nHeight, strScale, strAlign, strQuality, strBgColor, bCaptureRC, strWMode, strFlashVars)
+function WriteSwfObject(strSwfFile, nWidth, nHeight, strScale, strAlign, strQuality, strBgColor, bCaptureRC, strWMode, strFlashVars, targetElement, bFillWindow)
 {
 	var strHtml = "";
 	var strWidth = nWidth + "px";
 	var strHeight = nHeight + "px";
 	var strPublishSize = "&vPublishWidth=" + nWidth + "&vPublishHeight=" + nHeight;
 	
-	if (strScale == "show all")
+	if (g_strResizeType === "fit")
 	{
 		strWidth = "100%";
 		strHeight = "100%";
@@ -74,7 +77,7 @@ function WriteSwfObject(strSwfFile, nWidth, nHeight, strScale, strAlign, strQual
 	}
 	
 	// Whether or not we are loaded by an LMS
-	strFlashVars += "&vLMSPresent=" + g_bLMSPresent;	
+	strFlashVars += "&vLMSPresent=" + g_bLMSPresent;
 	
 	// Whether or not we are loaded by AO
 	strFlashVars += "&vAOSupport=" + g_bAOSupport;
@@ -88,7 +91,7 @@ function WriteSwfObject(strSwfFile, nWidth, nHeight, strScale, strAlign, strQual
 		RetrieveStateData();
 
 		strFlashVars += "&vResumeData=" + encodeURI(g_strResumeData);
-	}	
+	}
 	
 	strFlashVars += GetHostVars();
 	
@@ -106,7 +109,33 @@ function WriteSwfObject(strSwfFile, nWidth, nHeight, strScale, strAlign, strQual
 		strRole = " role='application'";
 	}
 	
-	strHtml += "<div" + strRole + " style='width:" + strWidth + "; height:" + strHeight + ";' id='divSwf' >";
+	// create the swf div
+	var divSwf = document.createElement("div");
+	divSwf.setAttribute("role", "application");
+	divSwf.setAttribute("id", "divSwf");
+	divSwf.style.width = strWidth;
+	divSwf.style.height = strHeight;
+	
+	if (!targetElement)
+	{
+		document.body.appendChild(divSwf);
+		g_bFillWindow = true;
+	}
+	else
+	{
+		g_bFillWindow = bFillWindow
+		g_bElement = true;
+		g_oContainer = targetElement;
+		targetElement.appendChild(divSwf);
+	}	
+
+	// Get the swf dims
+	if (isChrome && bFillWindow && g_strResizeType === "fit" && strScale === "noscale") {
+		strWidth = divSwf.clientWidth + "px";
+		strHeight = divSwf.clientHeight + "px";
+		InitResizeListeners();
+	}
+
 	strHtml += "<object type='application/x-shockwave-flash' data='" + strSwfFile +"' width='" + strWidth + "' height='" + strHeight + "' align='" + strAlign + "' id='player'>";
 	strHtml += "<param name='scale' value='" + strScale + "' />";
 	strHtml += "<param name='movie' value='" + strSwfFile + "' />";
@@ -118,10 +147,9 @@ function WriteSwfObject(strSwfFile, nWidth, nHeight, strScale, strAlign, strQual
 	strHtml += "<param name='wmode' value='" + strWMode + "'/>";
 	strHtml += "<param name='allowScriptAccess' value='always'>";
 	strHtml += "</object>";
-	strHtml += "</div>";
-
-	document.write(strHtml);
 	
+	divSwf.innerHTML = strHtml;	
+
 	if (bCaptureRC)
 	{
 		AddRightClickListener();
@@ -130,11 +158,54 @@ function WriteSwfObject(strSwfFile, nWidth, nHeight, strScale, strAlign, strQual
 	setTimeout(SetPlayerFocus, 500);
 }
 
+// Prevent Chrome from stretching the swf when resizing the browser
+var g_bExactFit = true;
+
+function InitJSResize() {
+	if (isChrome && g_bFillWindow) {
+		g_bExactFit = false;
+		return true;
+	}
+	return false;
+}
+
+function InitResizeListeners() 
+{
+	var divSwf = document.getElementById("divSwf");
+	var lastWidth = 0, lastHeight = 0, maxWidth = 0, maxHeight = 0;
+	
+	divSwf.className = [divSwf.className, "no-scroll"].join(" ");
+	
+	var handleResize = function() {
+		var width = divSwf.clientWidth;
+		var height = divSwf.clientHeight;
+			
+		if (width != lastWidth || height != lastHeight) {
+			try {
+				var player = GetPlayer();
+				player.UpdateSize(width, height);
+			} catch (e) {}
+			
+			if (width > maxWidth || height > maxHeight || g_bExactFit) {				
+				player.style.width = width + 'px';
+				player.style.height = height + 'px';
+				maxWidth = width;
+				maxHeight = height;
+			}
+			
+			lastWidth = width;
+			lastHeight = height;
+		}
+	};
+	
+	window.addEventListener('resize', handleResize);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Flash Comm
 ////////////////////////////////////////////////////////////////////////////////
 
-function onBWEvent(command, args) 
+function onBWEvent(command, args)
 {
 	args = unescape(args);
 	command = String(command);
@@ -150,13 +221,13 @@ function onBWEvent(command, args)
 			
 		case "BW_UpdateStatus":
 			g_oContentResults.strStatus = arrArgs[0];
-			g_oContentResults.nScore = arrArgs[1]; 
+			g_oContentResults.nScore = arrArgs[1];
 			// Min Score - arrArgs[2]
 			// Max Score - arrArgs[3]
 			g_oContentResults.nPassingScore = arrArgs[4];
 			g_oContentResults.strType = arrArgs[5];
-			g_oContentResults.dtmFinished = new Date();
-			break; 
+			g_oContentResults.dtmFinished = JSON.stringify(new Date());
+			break;
 			
 		case "BW_StoreQuestionResult":
 			var strQuizId = arrArgs[0];
@@ -183,7 +254,7 @@ function onBWEvent(command, args)
 			var oResult = new QuestionResults(strId, strLMSId, strType, strCorrectResponse, strUserResponse, nLatency, strStatus, nPoints, strCompletedTime, nWeight, nQuestionNumber, strDescription, bTracked);
 			
 			g_listQuizzes[strQuizId].AddQuestionResult(oResult);
-			break; 
+			break;
 		
 		case "BW_UpdateQuizResults":
 			var strQuizId = arrArgs[0];
@@ -192,13 +263,13 @@ function onBWEvent(command, args)
 			var nPassPercent = arrArgs[3];
 			var nScore = arrArgs[4];
 			var nPercentScore = arrArgs[5];
-			if (g_listQuizzes[strQuizId] == null) 
+			if (g_listQuizzes[strQuizId] == null)
 			{
 				g_listQuizzes[strQuizId] = new QuizData(strQuizId, strQuizName);
 			}
 			g_listQuizzes[strQuizId].nPassingScore = nPassPercent;
-			g_listQuizzes[strQuizId].nPtScore = nPercentScore; 
-			g_listQuizzes[strQuizId].dtmFinished = new Date();			
+			g_listQuizzes[strQuizId].nPtScore = nPercentScore;
+			g_listQuizzes[strQuizId].dtmFinished = new Date();
 			break;
 		case "BW_PrintResults":
 			g_oPrintOptions.bShowUserScore = (arrArgs[0] == "true");
@@ -210,10 +281,10 @@ function onBWEvent(command, args)
 			g_oPrintOptions.arrQuizzes = arrArgs[6].split(",");
 			g_oPrintOptions.bSurvey = (arrArgs[7] == "true");
 			
-			window.open(GetBasePath() + g_strContentFolder + "/report.html", "Reports") 
+			PrintResults();
 			break;
 			
-		case "BW_EmailResults":			
+		case "BW_EmailResults":
 			EmailResults(arrArgs[0] == "true", arrArgs[1] == "true", arrArgs[2] == "true", arrArgs[3] == "true", arrArgs[4], arrArgs[5], arrArgs[6].split(","));
 			break;
 			
@@ -272,7 +343,7 @@ function onBWEvent(command, args)
 				{
 					CloseWindow();
 				}
-			}			
+			}
 			break;
 		
 		case "BW_OpenVideo":
@@ -316,13 +387,13 @@ function GetHostVars()
 		switch(arrPair[0])
 		{
 			case "artcommid":
-				strResult += "&vCommId=" + arrPair[1];
+				strResult += "&vCommId=" + encodeURI(arrPair[1]);
 				break;
 			case "arthostresume":
-				strResult += "&vResumeOverride=" + arrPair[1];
+				strResult += "&vResumeOverride=" + encodeURI(arrPair[1]);
 				break;
 			case "artvolume":
-				strResult += "&InitVolume=" + arrPair[1];
+				strResult += "&InitVolume=" + encodeURI(arrPair[1]);
 				break;
 		}
 	}
@@ -344,6 +415,27 @@ function GetPlayer()
 function CloseWindow()
 {
 	top.window.close();
+}
+
+
+function PrintResults()
+{
+	var printData = {
+		g_oContentResults: g_oContentResults,
+		g_oPrintOptions: g_oPrintOptions,
+		g_listQuizzes: g_listQuizzes
+	};
+
+	var reportHtml = window.open(GetBasePath() + g_strContentFolder + "/report.html", "Reports");
+	if (reportHtml.postMessage != null)
+	{
+		window.addEventListener('message', function(event) {
+			if (event.data === 'getQuizData')
+			{
+				reportHtml.postMessage(JSON.stringify(printData), '*');
+			}
+		}, false);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -389,7 +481,7 @@ function ResizeOptimal()
 	{
 		if (GetContentWidth() != g_nWidth || GetContentHeight() != g_nHeight)
 		{
-			// First we need to reposition the browser so that it can actually grow to the appropiate size.  
+			// First we need to reposition the browser so that it can actually grow to the appropiate size.
 			// When positioning, we will overestimate the browser height by 160 if possible to accomadate the toolbar and statusbar
 			if (nXPos + g_nWindowWidth > screen.availWidth)
 			{
@@ -420,21 +512,21 @@ function ResizeOptimal()
 			// Resize the window so we know what the actual size is
 			top.window.resizeTo(g_nWindowWidth, g_nWindowHeight);
 			
-			// Since we know the actual browser size, and we can query the cliet dim, lets get the frame dim
-			nFrameWidth = (g_nWindowWidth) - GetContentWidth();
-			nFrameHeight = (g_nWindowHeight) - GetContentHeight();
-			
-			// Not lets resize it to the correct size
-			g_nWindowWidth = g_nWidth + nFrameWidth;
-			g_nWindowHeight = g_nHeight + nFrameHeight;
-			
-			top.window.resizeTo(g_nWindowWidth, g_nWindowHeight);
-			
-			if (IE)
+			setTimeout( function()
 			{
-				// ok,  sometimes there is a third party toolbar that doesn't load until after we have finish resizing everything, so we will do a check for this (this only seems to effect IE, FF behaves correctly)
+				// Since we know the actual browser size, and we can query the client dim, lets get the frame dim
+				nFrameWidth = (g_nWindowWidth) - GetContentWidth();
+				nFrameHeight = (g_nWindowHeight) - GetContentHeight();
+				
+				// lets resize it to the correct size
+				g_nWindowWidth = g_nWidth + nFrameWidth;
+				g_nWindowHeight = g_nHeight + nFrameHeight;
+				
+				top.window.resizeTo(g_nWindowWidth, g_nWindowHeight);
+
+				// sometimes there is a third party toolbar that doesn't load until after we have finish resizing everything, so we will do a check for this
 				g_nSizeInterval = setInterval(CheckSize, 500);
-			}			
+			}, 0);
 		}
 	}
 	else
@@ -616,7 +708,7 @@ function UpdateWebObjectPosition(strId, nXPos, nYPos, nWidth, nHeight)
 }
 
 function OpenWebObject(strId, strUrl, nXPos, nYPos, nWidth, nHeight, nSlideXOffset, nSlideYOffset)
-{	
+{
 	var oWebObject = g_oWebObjects[strId];
 	
 	if (!oWebObject)
@@ -625,7 +717,7 @@ function OpenWebObject(strId, strUrl, nXPos, nYPos, nWidth, nHeight, nSlideXOffs
 		oWebObject.strId = strId;
 		oWebObject.strInitUrl = strUrl;
 		
-		// Create the DIV	
+		// Create the DIV
 		oWebObject.Div = document.createElement('div');
 		oWebObject.Div.style.position = "absolute";
 		
@@ -637,6 +729,9 @@ function OpenWebObject(strId, strUrl, nXPos, nYPos, nWidth, nHeight, nSlideXOffs
 		oIFrame.style.width = "100%";
 		oIFrame.style.height = "100%";
 		oIFrame.allowtransparency = "true";
+		oIFrame.setAttribute('allowFullScreen', '');
+		oIFrame.setAttribute('webkitallowFullScreen', '');
+		oIFrame.setAttribute('mozallowFullScreen', '');
 		
 		oWebObject.Div.appendChild(oIFrame);
 		oWebObject.IFrame = oIFrame;
@@ -654,7 +749,7 @@ function OpenWebObject(strId, strUrl, nXPos, nYPos, nWidth, nHeight, nSlideXOffs
 	{
 		var oTarget = document.getElementById('divWebObjects');
 		oTarget.removeChild(oWebObject.Div);
-		oTarget.appendChild(oWebObject.Div);		
+		oTarget.appendChild(oWebObject.Div);
 	}
 	
 	oWebObject.Open = true;
@@ -705,7 +800,7 @@ function OpenWebObject(strId, strUrl, nXPos, nYPos, nWidth, nHeight, nSlideXOffs
 }
 
 function RestoreWebObjects()
-{ 
+{
 	var oWebObject = null;
 
 	for (var i = 0; i < g_arrStoredWebObjects.length; i++)
@@ -719,7 +814,7 @@ function RestoreWebObjects()
 }
 
 function CloseAllWebObjects(strStore)
-{	
+{
 	var bStore = (strStore == "true");
 	
 	for (var items in g_oWebObjects)
@@ -729,7 +824,7 @@ function CloseAllWebObjects(strStore)
 		if (bStore && oWebObject.Open)
 		{
 			g_arrStoredWebObjects.push(items);
-		}		
+		}
 		
 		CloseWebObject(items);
 	}
@@ -840,7 +935,7 @@ function OpenUrl(strUrl, strWindow, strWindowSize, strWidth, strHeight, strUseDe
 	var strOptions = "";
 	
 	if (!bUseDefaultControls && !bUseDefaultSize)
-	{	
+	{
 		if (bFullScreen)
 		{
 			nWndWidth = screen.availWidth;
@@ -876,7 +971,7 @@ function OpenUrl(strUrl, strWindow, strWindowSize, strWidth, strHeight, strUseDe
 		}
 		
 		if (bChrome)
-		{	
+		{
 			if (bFullScreen || !bUseDefaultSize)
 			{
 				strMenubar = "false";
@@ -1003,16 +1098,16 @@ function OpenVideo(strUrl, strWndWidth, strWndHeight, strVidWidth, strVidHeight,
 	var nWndWidth = parseInt(strWndWidth);
 	var nWndHeight = parseInt(strWndHeight);
 	
-	var strSearch = "exUrl=" + strUrl + 
+	var strSearch = "exUrl=" + strUrl +
 					"&exWndWidth=" + strWndWidth +
 					"&exWndHeight=" + strWndHeight +
-					"&exWidth=" + strVidWidth + 
-					"&exHeight=" + strVidHeight + 
-					"&exDuration=" + strDuration + 
-					"&exPlaybar=" + strPlaybar + 
-					"&exVolume=" + strVolume + 
+					"&exWidth=" + strVidWidth +
+					"&exHeight=" + strVidHeight +
+					"&exDuration=" + strDuration +
+					"&exPlaybar=" + strPlaybar +
+					"&exVolume=" + strVolume +
 					"&exAutoPlay=" + strAutoPlay +
-					"&exType=" + strType + 
+					"&exType=" + strType +
 					"&exASVersion=" + strASVersion;
 					
 	if (nWndWidth > screen.availWidth)
@@ -1028,7 +1123,7 @@ function OpenVideo(strUrl, strWndWidth, strWndHeight, strVidWidth, strVidHeight,
 	if (navigator.userAgent.toLowerCase().indexOf("chrome") >= 0)
 	{
 		strMenubar = "false";
-	}	
+	}
 
 
 	var strOptions = "";
@@ -1056,12 +1151,12 @@ function OpenVideo(strUrl, strWndWidth, strWndHeight, strVidWidth, strVidHeight,
 	var nWidth = screen.availWidth;
 	var nHeight = screen.availHeight;
 	
-	if (window.screenX != undefined) 
+	if (window.screenX != undefined)
 	{
 		nXPos = window.screenX;
 		nYPos = window.screenY;
 		nWidth = window.innerWidth;
-		nHeight = window.innerHeight;		
+		nHeight = window.innerHeight;
 	}
 	else if (window.screenLeft != undefined)
 	{
@@ -1135,13 +1230,13 @@ function DivContextMenu()
 
 function NSMouseDown()
 {
-	return function(evt) 
-	{ 
-		if (evt.button == 2) 
-		{ 
+	return function(evt)
+	{
+		if (evt.button == 2)
+		{
 			if (NotifyRightDown(evt.target.id))
 			{
-				evt.stopPropagation(); 
+				evt.stopPropagation();
 				evt.preventDefault();
 			}
 		}
@@ -1150,17 +1245,17 @@ function NSMouseDown()
 
 function NSMouseUp()
 {
-	return function(evt) 
-	{ 
-		if (evt.button == 2) 
+	return function(evt)
+	{
+		if (evt.button == 2)
 		{
 			if (NotifyRightUp(evt.target.id))
 			{
-				evt.stopPropagation(); 
+				evt.stopPropagation();
 				evt.preventDefault();
 			}
-		} 
-	} 
+		}
+	}
 }
 
 function NotifyRightDown(strId)
@@ -1230,7 +1325,7 @@ function EmailResults(bShowUserScore, bShowPassingScore, bShowPassFail, bShowQui
 	var strMainHeader = " " + strTitle + strNewLine + "Status, Score, Passing Score, Max Score, Min Score, Time" + strNewLine;
 	var strLineHeader = strNewLine + strNewLine + "Date, Time, Score, Quiz Name, Interaction ID, Interaction Type, Student Response, Result, Weight, Latency" + strNewLine;
 	var strMainData = strNewLine;
-	var strLineData = strNewLine; 
+	var strLineData = strNewLine;
 			
 	var oQuizResult = g_listQuizzes[strMainQuizId];
 	// Status
@@ -1297,7 +1392,7 @@ function EmailResults(bShowUserScore, bShowPassingScore, bShowPassFail, bShowQui
 			// Latency
 			strLineData += arrQuestions[i].nLatency;
 			
-			strLineData += strNewLine;		
+			strLineData += strNewLine;
 		}
 	}
 	
@@ -1311,12 +1406,12 @@ function EmailResults(bShowUserScore, bShowPassingScore, bShowPassFail, bShowQui
 	else
 	{
 		sHTML += '<FORM id="formQuiz" method="POST" action="mailto:' + strAddress + '?subject=' + g_strSubject + '" enctype="text/plain">';
-		sHTML += '<INPUT TYPE="hidden" NAME="Quiz Results" VALUE=\'' + strQuizResults + '\'>';	
+		sHTML += '<INPUT TYPE="hidden" NAME="Quiz Results" VALUE=\'' + strQuizResults + '\'>';
 	}
 	sHTML += '<br><input type="submit"><br>';
 	sHTML += '</FORM>';
 	document.getElementById("divEmail").innerHTML = sHTML;
-	document.getElementById("formQuiz").submit();	
+	document.getElementById("formQuiz").submit();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1398,14 +1493,14 @@ function QuizData(strQuizId, strQuizName)
 
 function ContentResults()
 {
-	this.dtmFinished = new Date();
+	this.dtmFinished = JSON.stringify(new Date());
 	this.nPassingScore = 80;
 	this.nScore = 0;
 	this.strStatus = "incomplete";
-	this.strType = "quiz";
+	this.strType = "view";
 }
 
-function QuestionResults(strId, strLMSId, strType, strCorrectResponse, strUserResponse, nLatency, strStatus, nPoints, strCompletedTime, nWeight, nQuestionNumber, strDescription, bTracked) 
+function QuestionResults(strId, strLMSId, strType, strCorrectResponse, strUserResponse, nLatency, strStatus, nPoints, strCompletedTime, nWeight, nQuestionNumber, strDescription, bTracked)
 {
 	this.strId = strId;
 	this.strLMSId = strLMSId;
@@ -1420,12 +1515,6 @@ function QuestionResults(strId, strLMSId, strType, strCorrectResponse, strUserRe
 	this.nQuestionNumber = nQuestionNumber;
 	this.strDescription = strDescription;
 	this.bTracked = bTracked;
-	
-/*	this.AlertResults = function()
-	{
-		var strTemp = "Id: " + strId + "\nType: " + strType + "\nCorrectResponse: " + strCorrectResponse + "\nUserResponse: " + strUserResponse + "\nLatency: " + nLatency + "\nStatus: " + strStatus + "\nPoints: " + nPoints + "\nCompletedTime: " + strCompletedTime + "\nWeight: " + nWeight + "\nQuestionNumber: " + nQuestionNumber + "\nDescription: " + strDescription;
-		alert(strTemp);
-	}*/
 }
 
 /****************************************************/
@@ -1498,7 +1587,7 @@ function PostAsyncRequest(nMessageType, strMethod, strData, strUrl, arrHeaders)
 			g_bFatalError = true;
 			GetPlayer().FatalTinCanError(0);
 		}
-	}	
+	}
 }
 
 function PostXDomainRequest(nMessageType, strMethod, strData, strUrl, arrHeaders, bSync)
@@ -1508,7 +1597,7 @@ function PostXDomainRequest(nMessageType, strMethod, strData, strUrl, arrHeaders
 	
 	xDomain.MessageType = nMessageType;
 	xDomain.status = 0;
-    
+
 	xDomain.onload = function()
 	{
 		xDomain.status = 200;
@@ -1540,7 +1629,7 @@ function PostXDomainRequest(nMessageType, strMethod, strData, strUrl, arrHeaders
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.open("GET", window.location + "?" + (new Date).getTime(), false);
 			xmlHttp.send(null);
-		}	
+		}
 	}
 	
 	return xDomain.status;
@@ -1555,10 +1644,10 @@ function PostXmlHttp(nMessageType, strMethod, strData, strUrl, arrHeaders)
 		g_bWaitingTinCanResponse = true;
 		
 		xmlHttp.MessageType = nMessageType;
-		xmlHttp.onreadystatechange = function() 
+		xmlHttp.onreadystatechange = function()
 		{
-			if (xmlHttp.readyState == 4) 
-			{		
+			if (xmlHttp.readyState == 4)
+			{
 				if (xmlHttp.status >= 400 && !(IE && xmlHttp.status == 1223))
 				{
 					OnSendError(xmlHttp);
@@ -1568,7 +1657,7 @@ function PostXmlHttp(nMessageType, strMethod, strData, strUrl, arrHeaders)
 					OnSendComplete(xmlHttp);
 				}
 			}
-		}		
+		}
 	
 		xmlHttp.open(strMethod, strUrl, true);
 		
@@ -1593,10 +1682,10 @@ function OnSendComplete(commObj)
 	}
 	
 	g_bWaitingTinCanResponse = false;
-	g_oCurrentRequest = null;	
+	g_oCurrentRequest = null;
 
 	if (g_arrTinCanMsgQueue.length > 0 && !g_bStopPosting)
-	{				
+	{
 		SendRequest(g_arrTinCanMsgQueue.shift());
 	}
 }
@@ -1608,10 +1697,10 @@ function OnSendError(commObj)
 		GetPlayer().SetTinCanResume("");
 		
 		g_bWaitingTinCanResponse = false;
-		g_oCurrentRequest = null;	
+		g_oCurrentRequest = null;
 
 		if (g_arrTinCanMsgQueue.length > 0 && !g_bStopPosting)
-		{				
+		{
 			SendRequest(g_arrTinCanMsgQueue.shift());
 		}
 	}
@@ -1630,7 +1719,7 @@ function OnSendError(commObj)
 			{
 				GetPlayer().FatalTinCanError(commObj.status);
 			}
-		}	
+		}
 	}
 }
 
@@ -1652,7 +1741,7 @@ function CreateXmlHttp()
 	var arrCtrlName = new Array("MSXML2.XMLHttp.5.0", "MSXML2.XMLHttp.4.0", "MSXML2.XMLHttp.3.0", "MSXML2.XMLHttp", "Microsoft.XMLHttp");
 	var nIndex = 0;
 	
-	if (window.XMLHttpRequest) 
+	if (window.XMLHttpRequest)
 	{
 		try
 		{
@@ -1704,7 +1793,7 @@ function PostSyncRequest(strMethod, strData, strUrl, arrHeaders)
 		if (nStatus != 200)
 		{
 			if(confirm("Could not save the result data. You may need to login again. Retry?"))
-			{		    
+			{
 				PostSyncRequest(strMethod, strData, strUrl, arrHeaders);
 				return;
 			}
@@ -1745,7 +1834,7 @@ function PostSyncXmlHttp(strMethod, strData, strUrl, arrHeaders)
 		xmlHttp.send(strData);
 		
 		if(xmlHttp.status >= 400 && !(IE && xmlHttp.status == 1223))
-		{	
+		{
 			nStatus = -1;
 		}
 	}

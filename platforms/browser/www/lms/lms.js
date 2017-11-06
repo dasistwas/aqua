@@ -161,7 +161,8 @@ function RecordInteraction(arrArgs)
 
 				for (var i = 0; i < arrUserResult.length; i++)
 				{
-					var objUserResult = lmsAPI.CreateResponseIdentifier(arrUserResult[i].substr(0,1), arrUserResult[i]);
+					var lmsString = encodeLmsString(arrUserResult[i]);
+					var objUserResult = lmsAPI.CreateResponseIdentifier(lmsString.short, lmsString.long);
 					arrUserResult[i] = objUserResult;
 				}
 				
@@ -169,14 +170,8 @@ function RecordInteraction(arrArgs)
 				{
 					for (var i = 0; i < arrCorrectResult.length; i++)
 					{
-						var strShort = "";
-						if (arrCorrectResult[i].length > 0)
-						{
-							strShort = arrCorrectResult[i].substr(0,1);
-						}
-
-						var objCorrectResponse = lmsAPI.CreateResponseIdentifier(strShort, arrCorrectResult[i]);
-
+						var lmsString = encodeLmsString(arrCorrectResult[i]);
+						var objCorrectResponse = lmsAPI.CreateResponseIdentifier(lmsString.short, lmsString.long);
 						arrCorrectResult[i] = objCorrectResponse;
 					}
 				}
@@ -306,6 +301,23 @@ function RecordInteraction(arrArgs)
 				break;
 		}
 	}	
+}
+
+function encodeLmsString(value) {
+	var long = value.replace(/[^A-Za-z_0-9!@#$%^*()\-+=.?,[\]\/`~\|:;]+/g, "_");
+	var short = ""
+
+	var tempShort =value.replace(/[\W]+/g, "");
+
+	if (tempShort.length > 0)
+	{
+		short = tempShort.substr(0,1);
+	}
+
+	return {
+		short: short,
+		long: long
+	};
 }
 
 function normalizeResult(result)  
