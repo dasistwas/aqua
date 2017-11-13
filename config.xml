@@ -7,7 +7,7 @@
   <author href="http://www.edulabs.org" email="info@edulabs.org">
         edulabs Mobile Team
     </author>
-  <content src="index.html"/>
+  <content src="www/story_html5.html"/>
   <access origin="*"/>
   <access origin="tel:*" launch-external="yes"/>
   <access origin="mailto:*" launch-external="yes"/>
@@ -23,7 +23,7 @@
     <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
 </feature>
 <plugin name="cordova-plugin-whitelist" source="npm" />
-
+<plugin name="cordova-plugin-media" source="npm" />
 <preference name="AllowInlineMediaPlayback" value="true" />
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
