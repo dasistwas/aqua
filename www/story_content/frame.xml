@@ -7,6 +7,7 @@
     <layout name="npnxnanbnsnfns00000000001" font="Open Sans" controllayout="npnxnanbnsnfns00000000001" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
     <layout name="pxabnsnfns00000000000" font="Open Sans" controllayout="pxabnsnfns00000000000" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
     <layout name="npnxabnsnfns00000000001" font="Open Sans" controllayout="npnxabnsnfns00000000001" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
+    <layout name="npnxanbnsnfns00000000001" font="Open Sans" controllayout="npnxanbnsnfns00000000001" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
   </layouts>
   <control_options>
     <optiongroups>
@@ -206,6 +207,29 @@
       <control name="next" enabled="false" />
       <control name="swipeleft" enabled="true" />
       <control name="swiperight" enabled="true" />
+      <control name="submit" enabled="false" />
+      <control name="finish" enabled="false" />
+      <control name="submitall" enabled="false" />
+      <control name="resources" enabled="false" />
+      <control name="glossary" enabled="false" />
+      <control name="transcript" enabled="false" />
+      <control name="outline" enabled="false">
+        <controls>
+          <control name="search" enabled="false" />
+        </controls>
+      </control>
+      <control name="close_btn" enabled="true" />
+    </control_layout>
+    <control_layout name="npnxanbnsnfns00000000001">
+      <control name="volume" enabled="false" />
+      <control name="seekbar" enabled="false" />
+      <control name="replay" enabled="false" />
+      <control name="pauseplay" enabled="false" />
+      <control name="logo" enabled="false" />
+      <control name="previous" enabled="false" />
+      <control name="next" enabled="false" />
+      <control name="swipeleft" enabled="true" />
+      <control name="swiperight" enabled="false" />
       <control name="submit" enabled="false" />
       <control name="finish" enabled="false" />
       <control name="submitall" enabled="false" />
@@ -1197,15 +1221,19 @@
   <nav_data>
     <outline>
       <links>
-        <slidelink slideid="_player.5Wddu9f3rru" displaytext="Untitled Scene" expand="true" type="slide">
+        <slidelink slideid="_player.5Wddu9f3rru" displaytext="Template" expand="true" type="slide">
           <links>
             <slidelink slideid="_player.5Wddu9f3rru.5f9SBwQ89Pf" displaytext="Sprachauswahl" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.6amFoarPs9U" displaytext="Bild_Text_Seite" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.5mgHvD4GKjq" displaytext="Antibiotika helfen nicht" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.6amFoarPs9U" displaytext="Was hilft bei Erkältung?" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.5q9gAx6yGcB" displaytext="Wie wirken Antibiotika?" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.6fZ9yz1Nf2q" displaytext="Wie wirken Antibiotika?" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6BY03pgWLy8" displaytext="Antibiotika helfen nicht" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6e9gVWG2Tjs" displaytext="Quizfrage" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.6oAMRpkDdSl" displaytext="Weiterführende Informationen" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.5wOP2GvX0PA" displaytext="Sprachauswahl" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.5kA2WTeBpW6" displaytext="Quizfrage" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.6oAMRpkDdSl" displaytext="Weiterfuehrende Informationen" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.5wOP2GvX0PA" displaytext="Videos" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.5qdly5twa9j" displaytext="Infozepte" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.5es2wsecvVV" displaytext="Impressum" expand="false" type="slide" />
           </links>
         </slidelink>
       </links>
