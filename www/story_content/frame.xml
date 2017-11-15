@@ -15,7 +15,7 @@
         <options>
           <option name="title_enabled" value="false">
             <options>
-              <option name="title_text" value="ARena" />
+              <option name="title_text" value="ARena V2" />
             </options>
           </option>
           <option name="logo_enabled" value="false">
@@ -1163,50 +1163,50 @@
   </colorschemes>
   <string_tables>
     <string_table name="npnxabnsnfns00000000001">
-      <string id="check_include">Überprüfen</string>
-      <string id="clear">Löschen</string>
-      <string id="close">Schließen</string>
-      <string id="acc_closed_captions">Geschlossene Untertitel. Drücken Sie die Leertaste, um die Untertitel an- und oder auszuschalten.</string>
-      <string id="continue">Fortfahren</string>
-      <string id="continueresponsive">Fortfahren</string>
-      <string id="exit">Verlassen</string>
-      <string id="filter">Filter</string>
-      <string id="finish">BEENDEN</string>
-      <string id="acc_finish">beenden</string>
-      <string id="definition">Definition</string>
-      <string id="acc_definition">definition</string>
-      <string id="glossary">Glossar</string>
-      <string id="terms">Begriffe</string>
-      <string id="outline">Menü</string>
-      <string id="disabled_orientation">Bitte drehen Sie das Gerät</string>
-      <string id="next">WEITER</string>
-      <string id="acc_next">nächste</string>
-      <string id="transcript_chk">Notizen</string>
-      <string id="transcript">Notizen</string>
-      <string id="bio">Bio</string>
-      <string id="more_info">Weitere Informationen</string>
-      <string id="closed_captions">Untertitel</string>
-      <string id="acc_pause">pause</string>
-      <string id="acc_play">spielen</string>
-      <string id="send_an_email">E-Mail senden</string>
-      <string id="prev">ZURÜCK</string>
-      <string id="acc_previous">vorherigen</string>
-      <string id="question_list">Liste der Fragen</string>
-      <string id="acc_replay">erneute wiedergabe</string>
-      <string id="resources">Ressourcen</string>
-      <string id="acc_resources">ressourcen</string>
-      <string id="restart">Neustart</string>
-      <string id="search">Suche...</string>
-      <string id="acc_search_input">suche</string>
-      <string id="search_in">Suche in:</string>
       <string id="search_results">Suchergebnisse</string>
-      <string id="acc_skipnavigation">Navigation überspringen. Eingabetaste drücken, um zur Folie zurückzukehren.</string>
+      <string id="search_in">Suche in:</string>
+      <string id="acc_search_input">suche</string>
+      <string id="search">Suche...</string>
+      <string id="restart">Neustart</string>
+      <string id="acc_resources">ressourcen</string>
+      <string id="resources">Ressourcen</string>
+      <string id="acc_replay">erneute wiedergabe</string>
+      <string id="question_list">Liste der Fragen</string>
+      <string id="acc_previous">vorherigen</string>
       <string id="slide_text_chk">Folientext</string>
-      <string id="submitall">ALLES SENDEN</string>
-      <string id="acc_submitall">alles senden</string>
-      <string id="submit">SENDEN</string>
-      <string id="acc_submit">senden</string>
       <string id="acc_volume">Lautstärke</string>
+      <string id="acc_submit">senden</string>
+      <string id="submit">SENDEN</string>
+      <string id="acc_submitall">alles senden</string>
+      <string id="submitall">ALLES SENDEN</string>
+      <string id="acc_skipnavigation">Navigation überspringen. Eingabetaste drücken, um zur Folie zurückzukehren.</string>
+      <string id="prev">ZURÜCK</string>
+      <string id="terms">Begriffe</string>
+      <string id="glossary">Glossar</string>
+      <string id="acc_definition">definition</string>
+      <string id="definition">Definition</string>
+      <string id="acc_finish">beenden</string>
+      <string id="finish">BEENDEN</string>
+      <string id="filter">Filter</string>
+      <string id="exit">Verlassen</string>
+      <string id="continueresponsive">Fortfahren</string>
+      <string id="continue">Fortfahren</string>
+      <string id="acc_closed_captions">Geschlossene Untertitel. Drücken Sie die Leertaste, um die Untertitel an- und oder auszuschalten.</string>
+      <string id="close">Schließen</string>
+      <string id="clear">Löschen</string>
+      <string id="check_include">Überprüfen</string>
+      <string id="send_an_email">E-Mail senden</string>
+      <string id="acc_play">spielen</string>
+      <string id="acc_pause">pause</string>
+      <string id="closed_captions">Untertitel</string>
+      <string id="more_info">Weitere Informationen</string>
+      <string id="bio">Bio</string>
+      <string id="transcript">Notizen</string>
+      <string id="transcript_chk">Notizen</string>
+      <string id="acc_next">nächste</string>
+      <string id="next">WEITER</string>
+      <string id="disabled_orientation">Bitte drehen Sie das Gerät</string>
+      <string id="outline">Menü</string>
     </string_table>
   </string_tables>
   <fonts>
@@ -1225,15 +1225,19 @@
           <links>
             <slidelink slideid="_player.5Wddu9f3rru.5f9SBwQ89Pf" displaytext="Sprachauswahl" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6amFoarPs9U" displaytext="Was hilft bei Erkältung?" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.5q9gAx6yGcB" displaytext="Wie wirken Antibiotika?" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.6fZ9yz1Nf2q" displaytext="Wie wirken Antibiotika?" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6BY03pgWLy8" displaytext="Antibiotika helfen nicht" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6e9gVWG2Tjs" displaytext="Quizfrage" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.5kA2WTeBpW6" displaytext="Quizfrage" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6oAMRpkDdSl" displaytext="Weiterfuehrende Informationen" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.5wOP2GvX0PA" displaytext="Videos" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.5qdly5twa9j" displaytext="Infozepte" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.5es2wsecvVV" displaytext="Impressum" expand="false" type="slide" />
+          </links>
+        </slidelink>
+        <slidelink slideid="_player.5hi1AgtbYi7" displaytext="Untitled Scene" expand="true" type="slide">
+          <links>
+            <slidelink slideid="_player.5hi1AgtbYi7.6HQVhmSkFjn" displaytext="Wie wirken Antibiotika?" expand="false" type="slide" />
+            <slidelink slideid="_player.5hi1AgtbYi7.5s7jgM5wKUM" displaytext="Wie wirken Antibiotika?" expand="false" type="slide" />
+            <slidelink slideid="_player.5hi1AgtbYi7.5WGuXR5TXRT" displaytext="Quizfrage" expand="false" type="slide" />
           </links>
         </slidelink>
       </links>
