@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bwFrame xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" default_layout="npnxabnsnfns00000000001" textdirection="ltr" device="false" fontscale="100" kbshortcuts="false" skip_nav_enabled="true" outputtype="undefined" theme="classic">
+<bwFrame xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" default_layout="npnxabnsnfns00001000001" textdirection="ltr" device="false" fontscale="100" kbshortcuts="false" skip_nav_enabled="true" outputtype="undefined" theme="classic">
   <layouts>
-    <layout name="npnxnanbsnfns00000000001" font="Open Sans" controllayout="npnxnanbsnfns00000000001" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
-    <layout name="pxabnsnfns00000000001" font="Open Sans" controllayout="pxabnsnfns00000000001" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
-    <layout name="npxnabnsnfns00000000001" font="Open Sans" controllayout="npxnabnsnfns00000000001" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
-    <layout name="npnxnanbnsnfns00000000001" font="Open Sans" controllayout="npnxnanbnsnfns00000000001" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
-    <layout name="pxabnsnfns00000000000" font="Open Sans" controllayout="pxabnsnfns00000000000" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
-    <layout name="npnxabnsnfns00000000001" font="Open Sans" controllayout="npnxabnsnfns00000000001" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
-    <layout name="npnxanbnsnfns00000000001" font="Open Sans" controllayout="npnxanbnsnfns00000000001" colorscheme="npnxabnsnfns00000000001" string_table="npnxabnsnfns00000000001" />
+    <layout name="npnxnanbsnfns00001000001" font="Open Sans" controllayout="npnxnanbsnfns00001000001" colorscheme="npnxabnsnfns00001000001" string_table="npnxabnsnfns00001000001" />
+    <layout name="pxabnsnfns00001000001" font="Open Sans" controllayout="pxabnsnfns00001000001" colorscheme="npnxabnsnfns00001000001" string_table="npnxabnsnfns00001000001" />
+    <layout name="npxnabnsnfns00001000001" font="Open Sans" controllayout="npxnabnsnfns00001000001" colorscheme="npnxabnsnfns00001000001" string_table="npnxabnsnfns00001000001" />
+    <layout name="npnxnanbnsnfns00001000001" font="Open Sans" controllayout="npnxnanbnsnfns00001000001" colorscheme="npnxabnsnfns00001000001" string_table="npnxabnsnfns00001000001" />
+    <layout name="pxabnsnfns00001000000" font="Open Sans" controllayout="pxabnsnfns00001000000" colorscheme="npnxabnsnfns00001000001" string_table="npnxabnsnfns00001000001" />
+    <layout name="npnxabnsnfns00001000001" font="Open Sans" controllayout="npnxabnsnfns00001000001" colorscheme="npnxabnsnfns00001000001" string_table="npnxabnsnfns00001000001" />
+    <layout name="npnxanbnsnfns00001000001" font="Open Sans" controllayout="npnxanbnsnfns00001000001" colorscheme="npnxabnsnfns00001000001" string_table="npnxabnsnfns00001000001" />
   </layouts>
   <control_options>
     <optiongroups>
@@ -15,7 +15,7 @@
         <options>
           <option name="title_enabled" value="false">
             <options>
-              <option name="title_text" value="ARena V2" />
+              <option name="title_text" value="ARena" />
             </options>
           </option>
           <option name="logo_enabled" value="false">
@@ -28,8 +28,8 @@
           </option>
           <optionlist name="tabs">
             <listitems>
+              <listitem name="outline" value="true" group="linkleft" />
               <listitem name="resources" value="false" group="linkright" />
-              <listitem name="outline" value="false" group="sidebar" />
               <listitem name="glossary" value="false" group="sidebar" />
               <listitem name="transcript" value="false" group="sidebar" />
             </listitems>
@@ -82,7 +82,7 @@
     </optiongroups>
   </control_options>
   <control_layouts>
-    <control_layout name="npnxnanbsnfns00000000001">
+    <control_layout name="npnxnanbsnfns00001000001">
       <control name="volume" enabled="false" />
       <control name="seekbar" enabled="false" />
       <control name="replay" enabled="false" />
@@ -98,14 +98,14 @@
       <control name="resources" enabled="false" />
       <control name="glossary" enabled="false" />
       <control name="transcript" enabled="false" />
-      <control name="outline" enabled="false">
+      <control name="outline" enabled="true">
         <controls>
           <control name="search" enabled="false" />
         </controls>
       </control>
       <control name="close_btn" enabled="true" />
     </control_layout>
-    <control_layout name="pxabnsnfns00000000001">
+    <control_layout name="pxabnsnfns00001000001">
       <control name="volume" enabled="false" />
       <control name="seekbar" enabled="false" />
       <control name="replay" enabled="false" />
@@ -121,14 +121,14 @@
       <control name="resources" enabled="false" />
       <control name="glossary" enabled="false" />
       <control name="transcript" enabled="false" />
-      <control name="outline" enabled="false">
+      <control name="outline" enabled="true">
         <controls>
           <control name="search" enabled="false" />
         </controls>
       </control>
       <control name="close_btn" enabled="true" />
     </control_layout>
-    <control_layout name="npxnabnsnfns00000000001">
+    <control_layout name="npxnabnsnfns00001000001">
       <control name="volume" enabled="false" />
       <control name="seekbar" enabled="false" />
       <control name="replay" enabled="false" />
@@ -144,14 +144,14 @@
       <control name="resources" enabled="false" />
       <control name="glossary" enabled="false" />
       <control name="transcript" enabled="false" />
-      <control name="outline" enabled="false">
+      <control name="outline" enabled="true">
         <controls>
           <control name="search" enabled="false" />
         </controls>
       </control>
       <control name="close_btn" enabled="true" />
     </control_layout>
-    <control_layout name="npnxnanbnsnfns00000000001">
+    <control_layout name="npnxnanbnsnfns00001000001">
       <control name="volume" enabled="false" />
       <control name="seekbar" enabled="false" />
       <control name="replay" enabled="false" />
@@ -167,14 +167,14 @@
       <control name="resources" enabled="false" />
       <control name="glossary" enabled="false" />
       <control name="transcript" enabled="false" />
-      <control name="outline" enabled="false">
+      <control name="outline" enabled="true">
         <controls>
           <control name="search" enabled="false" />
         </controls>
       </control>
       <control name="close_btn" enabled="true" />
     </control_layout>
-    <control_layout name="pxabnsnfns00000000000">
+    <control_layout name="pxabnsnfns00001000000">
       <control name="volume" enabled="false" />
       <control name="seekbar" enabled="false" />
       <control name="replay" enabled="false" />
@@ -190,14 +190,14 @@
       <control name="resources" enabled="false" />
       <control name="glossary" enabled="false" />
       <control name="transcript" enabled="false" />
-      <control name="outline" enabled="false">
+      <control name="outline" enabled="true">
         <controls>
           <control name="search" enabled="false" />
         </controls>
       </control>
       <control name="close_btn" enabled="false" />
     </control_layout>
-    <control_layout name="npnxabnsnfns00000000001">
+    <control_layout name="npnxabnsnfns00001000001">
       <control name="volume" enabled="false" />
       <control name="seekbar" enabled="false" />
       <control name="replay" enabled="false" />
@@ -213,14 +213,14 @@
       <control name="resources" enabled="false" />
       <control name="glossary" enabled="false" />
       <control name="transcript" enabled="false" />
-      <control name="outline" enabled="false">
+      <control name="outline" enabled="true">
         <controls>
           <control name="search" enabled="false" />
         </controls>
       </control>
       <control name="close_btn" enabled="true" />
     </control_layout>
-    <control_layout name="npnxanbnsnfns00000000001">
+    <control_layout name="npnxanbnsnfns00001000001">
       <control name="volume" enabled="false" />
       <control name="seekbar" enabled="false" />
       <control name="replay" enabled="false" />
@@ -236,7 +236,7 @@
       <control name="resources" enabled="false" />
       <control name="glossary" enabled="false" />
       <control name="transcript" enabled="false" />
-      <control name="outline" enabled="false">
+      <control name="outline" enabled="true">
         <controls>
           <control name="search" enabled="false" />
         </controls>
@@ -245,7 +245,7 @@
     </control_layout>
   </control_layouts>
   <colorschemes>
-    <colorscheme name="npnxabnsnfns00000000001">
+    <colorscheme name="npnxabnsnfns00001000001">
       <color_group name="infopanel">
         <group_colors>
           <color name="link_text">
@@ -1162,7 +1162,7 @@
     </colorscheme>
   </colorschemes>
   <string_tables>
-    <string_table name="npnxabnsnfns00000000001">
+    <string_table name="npnxabnsnfns00001000001">
       <string id="check_include">Überprüfen</string>
       <string id="clear">Löschen</string>
       <string id="close">Schließen</string>
@@ -1224,7 +1224,7 @@
         <slidelink slideid="_player.5Wddu9f3rru" displaytext="ARena " expand="true" type="slide">
           <links>
             <slidelink slideid="_player.5Wddu9f3rru.5f9SBwQ89Pf" displaytext="Sprachauswahl" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.6G6Pczw6G20" displaytext="Liebe Patientin! &#xA;Lieber Patient!" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.6G6Pczw6G20" displaytext="Liebe Patientin! Lieber Patient!" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6llj1M5TMQe" displaytext="Was sind eigentlich Antibiotika? " expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6oZdjk4MRAC" displaytext="Wie wirken Antibiotika?" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.5v5OPetDGuf" displaytext="Antibiotika helfen nicht" expand="false" type="slide" />
@@ -1237,12 +1237,12 @@
             <slidelink slideid="_player.5Wddu9f3rru.6890dh1PsD3" displaytext="Bei Beschwerden" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6e9gVWG2Tjs" displaytext="Quizfrage" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6JyqgkoKnrA" displaytext="Quizfrage" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.6JPoa0fFk4i" displaytext="Quizfrage" expand="false" type="slide" />
-            <slidelink slideid="_player.5Wddu9f3rru.5rptGpw4QvU" displaytext="Quiz" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.6Lg18bHHYTe" displaytext="Quizfrage" expand="false" type="slide" />
+            <slidelink slideid="_player.5Wddu9f3rru.5rptGpw4QvU" displaytext="Quizfrage" expand="false" type="slide" />
             <slidelink slideid="_player.5Wddu9f3rru.6cfwwTXKcIC" displaytext="Abschlussfolie" expand="false" type="slide" />
           </links>
         </slidelink>
-        <slidelink slideid="_player.5dxSXbubEFU" displaytext="Further Infos" expand="true" type="slide">
+        <slidelink slideid="_player.5dxSXbubEFU" displaytext="Weiterfuehrende Informationen " expand="true" type="slide">
           <links>
             <slidelink slideid="_player.5dxSXbubEFU.5gqj9ITnlmd" displaytext="Weiterfuehrende Informationen" expand="false" type="slide" />
             <slidelink slideid="_player.5dxSXbubEFU.5njRSqrUnmA" displaytext="Interviews" expand="false" type="slide" />
