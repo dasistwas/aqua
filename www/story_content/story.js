@@ -852,21 +852,25 @@ function GetDivRect(oPosition)
 	var nClientWidth = GetContentWidth();
 	var nClientHeight = GetContentHeight();
 	var nLeftMargin = 0;
+	var nTopMargin = 0;
 	var nSwfWidth = parseInt(g_nWidth);
 	var nSwfHeight = parseInt(g_nHeight);
 	
 	if (g_strScale == "noscale")
 	{
-		nLeftMargin = (nClientWidth - nSwfWidth) / 2;
-		nTopMargin = (nClientHeight - nSwfHeight) / 2;
+		if (g_strResizeType != "fit")
+		{
+			nLeftMargin = (nClientWidth - nSwfWidth) / 2;
+			nTopMargin = (nClientHeight - nSwfHeight) / 2;
 		
-		if (nLeftMargin < 0)
-		{
-			nLeftMargin = 0;
-		}
-		if (nTopMargin < 0)
-		{
-			nTopMargin = 0;
+			if (nLeftMargin < 0)
+			{
+				nLeftMargin = 0;
+			}
+			if (nTopMargin < 0)
+			{
+				nTopMargin = 0;
+			}
 		}
 		
 		oRect.left = nLeftMargin + oPosition.XPos;
