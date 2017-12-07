@@ -3,7 +3,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id="org.edulabs.aqua" 
-        version="1.0.11">
+        version="1.0.12">
     <name>aqua Antibiotika</name>
   <description>
         aqua Antibiotika
@@ -548,4 +548,4 @@
         <string>We'd like to access your photo library to let you upload a photo or image to the site.</string>
     </gap:config-file>
 
-</widget>
+</widget>git 
