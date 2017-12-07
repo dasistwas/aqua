@@ -30,7 +30,6 @@
     <allow-navigation href="*" />
 
     <allow-intent href="*" />
-    <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="phonegap-version" value="cli-6.5.0" />
     <preference name="orientation"      value="default" />
     <preference name="target-device"    value="universal" />
