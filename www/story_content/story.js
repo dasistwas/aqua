@@ -85,6 +85,10 @@ function WriteSwfObject(strSwfFile, nWidth, nHeight, strScale, strAlign, strQual
 	// Set the publish width and height
 	strFlashVars += strPublishSize;
 	
+	// Set the theme info
+	strFlashVars += "&vThemeName=" + g_strThemeName;
+	strFlashVars += "&vPreloaderColor=" + g_strPreloaderColor;
+	
 	// Set the LMS Resume data
 	if (g_bLMSPresent)
 	{
@@ -156,6 +160,19 @@ function WriteSwfObject(strSwfFile, nWidth, nHeight, strScale, strAlign, strQual
 	}
 	
 	setTimeout(SetPlayerFocus, 500);
+	
+	document.addEventListener("visibilitychange", UpdateVisibility);
+}
+
+function UpdateVisibility(e) {
+	var player = GetPlayer();
+	if (player != null) {
+		if (document.hidden) {
+			player.TriggerPause();
+		} else {
+			player.TriggerPlay();
+		}
+	}
 }
 
 // Prevent Chrome from stretching the swf when resizing the browser
